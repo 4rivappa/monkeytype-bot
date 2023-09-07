@@ -28,7 +28,7 @@ def get_saved_data():
         return None, None
 
 def create_new_data(timestamp, streak):
-    tobe_saved_data = {'timestamp': timestamp, 'streak': streak}
+    tobe_saved_data = {'date': timestamp, 'streak': streak}
 
     if not os.path.exists('exports'):
         os.makedirs('exports')
