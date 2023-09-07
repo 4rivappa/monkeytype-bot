@@ -24,8 +24,8 @@ jobs:
 
       - name: Running script
         env: 
-          TWITCH_CLIENT_ID: ${{ secrets.API_KEY }}
-          TWITCH_CLIENT_SECRET: ${{ secrets.ARIVAPPA_ID }}
+          API_KEY: ${{ secrets.API_KEY }}
+          ARIVAPPA_ID: ${{ secrets.ARIVAPPA_ID }}
         run: |
           mkdir exports
           python script.py
