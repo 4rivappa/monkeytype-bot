@@ -1,0 +1,39 @@
+name: check monkeytype streak
+
+on:
+  schedule:
+    - cron: "10 */1 * * *"
+  workflow_dispatch:
+
+jobs:
+  check-streak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Running script
+        env: 
+          TWITCH_CLIENT_ID: ${{ secrets.API_KEY }}
+          TWITCH_CLIENT_SECRET: ${{ secrets.ARIVAPPA_ID }}
+        run: |
+          mkdir exports
+          python script.py
+          
+      - name: push exports to data branch
+        uses: crazy-max/ghaction-github-pages@v2.5.0
+        with:
+          target_branch: data
+          build_dir: exports
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
