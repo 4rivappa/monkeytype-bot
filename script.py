@@ -64,19 +64,20 @@ def main():
     
     if curr_streak == 0:
         freakout_ari()
-        create_new_data((saved_date - timedelta(days=1)).timestamp() * 1000, curr_streak)
+        create_new_data((datetime.utcnow() + timedelta(hours=5, minutes=30) - timedelta(days=1)).timestamp() * 1000, curr_streak)
         return
     if curr_streak == saved_streak:
         current_utc = datetime.utcnow() + timedelta(hours=5, minutes=30)
         target_utc = current_utc.replace(hour=5, minute=30, second=0, microsecond=0)
-        if current_utc < target_utc:
+        if current_utc < target_utc and (current_utc - saved_date).days < 1:
             intimate_ari()
             create_new_data(saved_date.timestamp() * 1000, curr_streak)
             return
-        if (current_utc - saved_date).days < 1:
+        if current_utc > target_utc and saved_date > target_utc and (current_utc - saved_date).days < 1:
             intimate_ari()
             create_new_data(saved_date.timestamp() * 1000, curr_streak)
             return
+        print("success")
         freakout_ari()
         create_new_data(saved_date.timestamp() * 1000, curr_streak)
         return
