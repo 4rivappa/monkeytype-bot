@@ -38,7 +38,7 @@ def create_new_data(timestamp, streak):
     return
 
 def freakout_ari():
-    current_utc = datetime.utcnow()
+    current_utc = datetime.utcnow() + timedelta(hours=5, minutes=30)
     target_utc = current_utc.replace(hour=5, minute=30, second=0, microsecond=0)
     strength = 0
     if current_utc.hour < 23 and current_utc.hour > 5:
@@ -67,7 +67,7 @@ def main():
         create_new_data((saved_date - timedelta(days=1)).timestamp() * 1000, curr_streak)
         return
     if curr_streak == saved_streak:
-        current_utc = datetime.utcnow()
+        current_utc = datetime.utcnow() + timedelta(hours=5, minutes=30)
         target_utc = current_utc.replace(hour=5, minute=30, second=0, microsecond=0)
         if current_utc < target_utc:
             intimate_ari()
@@ -82,7 +82,7 @@ def main():
         return
     if curr_streak == saved_streak + 1:
         intimate_ari()
-        create_new_data(datetime.utcnow().timestamp() * 1000, curr_streak)
+        create_new_data((datetime.utcnow() + timedelta(hours=5, minutes=30)).timestamp() * 1000, curr_streak)
         return
 
 if __name__ == "__main__":
